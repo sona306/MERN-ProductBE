@@ -16,6 +16,44 @@ app.post("/add",(req,res)=>{
     res.json({"status":"success"})
 })
 
+app.post("/view",(req,res)=>{
+    productmodel.find().then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+            res.json(error)
+        }
+    ) 
+})
+
+app.post("/search",(req,res)=>{
+    let input=req.body
+    productmodel.find(input).then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+        res.json(error)
+        }
+    )
+})
+
+app.post("/delete",(req,res)=>{
+    let input=req.body
+    productmodel.findByIdAndDelete(input._id).then(
+        (response)=>{
+            res.json({"status":"success"})
+        }
+    ).catch(
+        (error)=>{
+            res.json({"status":"error"})
+        }
+    )
+})
+
 app.listen(8088,()=>{
     console.log("server running..")
     })
